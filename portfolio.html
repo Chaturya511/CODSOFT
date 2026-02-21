@@ -1,70 +1,84 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>My Portfolio</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chaturya - Personal Portfolio</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
     <!-- Header Section -->
     <header>
-        <h1>Darapaneni Chaturya</h1>
-        <p>Aspiring Web Developer | CSE Student</p>
+        <nav>
+            <div class="logo">Chaturya</div>
+            <ul>
+                <li><a href="#about">About</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#resume">Resume</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+        <div class="hero">
+            <h1>Chaturya</h1>
+            <p>CSIT BTech Student | Aspiring Developer from Hyderabad</p>[cite:13]
+        </div>
     </header>
 
     <!-- About Section -->
     <section id="about">
-        <img src="profile.jpg" alt="My Photo">
-        <h2>About Me</h2>
-        <p>
-            I am a Computer Science student passionate about web development.
-            I enjoy building responsive websites and learning new technologies.
-        </p>
+        <img src="images/your-photo.jpg" alt="Chaturya">
+        <div class="bio">
+            <h2>About Me</h2>
+            <p>I'm Chaturya, a BTech CSE student based in AndhraPradesh. Experienced in web development, IoT projects like Arduino touch dimmer, and team-based systems from college.[cite:12][cite:11] Passionate about creating innovative tech solutions.</p>
+        </div>
     </section>
 
     <!-- Skills Section -->
     <section id="skills">
-        <h2>My Skills</h2>
+        <h2>Skills</h2>
         <ul>
-            <li>HTML</li>
-            <li>CSS</li>
-            <li>Python</li>
-            <li>Java</li>
+            <li>HTML5 & CSS3</li>
+            <li>JavaScript</li>
+            <li>Responsive Design</li>
+            <li>Arduino & IoT</li>
+            <li>Bootstrap</li>[cite:11]
         </ul>
     </section>
 
     <!-- Projects Section -->
     <section id="projects">
-        <h2>My Projects</h2>
-
-        <div class="project">
-            <h3>Portfolio Website</h3>
-            <p>A personal website created using HTML and CSS.</p>
-        </div>
-
-        <div class="project">
-            <h3>Flashcard Quiz App</h3>
-            <p>A simple quiz application for studying using web technologies.</p>
+        <h2>Projects</h2>
+        <div class="project-grid">
+            <div class="project">
+                <img src="images/project1.jpg" alt="Arduino Dimmer">
+                <h3>Touch Push Button Dimmer</h3>
+                <p>Arduino-based dimmer circuit demo with PPT presentation.[cite:11]</p>
+            </div>
+            <div class="project">
+                <img src="images/project2.jpg" alt="Campus System">
+                <h3>Campus Management System</h3>
+                <p>Team project for CSIT with attendance and analytics.[cite:12]</p>
+            </div>
         </div>
     </section>
 
     <!-- Resume Section -->
     <section id="resume">
         <h2>Resume</h2>
-        <a href="resume.pdf" download>Download My Resume</a>
+        <p>Download my resume in PDF format.</p>
+        <a href="resume.pdf" download class="download-btn">Download Resume</a>
     </section>
 
     <!-- Contact Section -->
     <section id="contact">
-        <h2>Contact Me</h2>
-        <p>Email: chaturya@email.com</p>
-        <p>Phone: +91 9876543210</p>
+        <h2>Contact</h2>
+        <p>Email: dchaturya11@gmail.com | Phone: 8885446223 | AndhraPradesh</p>
     </section>
 
     <!-- Footer -->
     <footer>
-        <p>© 2026 Darapaneni Chaturya. All Rights Reserved.</p>
+        <p>&copy; 2026 Chaturya. All rights reserved.</p>
     </footer>
-
 </body>
 </html>
