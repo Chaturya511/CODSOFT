@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Job Board</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body{
+    margin:0;
+    font-family: Arial, sans-serif;
+}
+
+/* Navbar */
+.navbar{
+    background:#007bff;
+    color:white;
+    padding:15px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+.navbar a{
+    color:white;
+    text-decoration:none;
+    margin:0 10px;
+}
+.btn{
+    background:#28a745;
+    padding:8px 15px;
+    border-radius:5px;
+}
+
+/* Hero Section */
+.hero{
+    background:linear-gradient(to right,#007bff,#00c6ff);
+    color:white;
+    text-align:center;
+    padding:80px 20px;
+}
+.hero h1{
+    font-size:40px;
+}
+.hero button{
+    padding:10px 20px;
+    background:#28a745;
+    border:none;
+    color:white;
+    border-radius:5px;
+    cursor:pointer;
+}
+
+/* Search Section */
+.search{
+    padding:20px;
+    text-align:center;
+}
+.search input{
+    padding:10px;
+    width:200px;
+    margin:5px;
+}
+.search button{
+    padding:10px 20px;
+    background:#007bff;
+    color:white;
+    border:none;
+}
+
+/* Job Cards */
+.jobs{
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
+    padding:20px;
+}
+.job-card{
+    width:250px;
+    border:1px solid #ddd;
+    border-radius:8px;
+    padding:15px;
+    margin:10px;
+    box-shadow:0 2px 5px rgba(0,0,0,0.1);
+}
+.job-card h3{
+    margin:5px 0;
+}
+.job-card button{
+    background:#28a745;
+    border:none;
+    padding:8px;
+    color:white;
+    border-radius:5px;
+    cursor:pointer;
+}
+
+/* Footer */
+.footer{
+    background:#333;
+    color:white;
+    text-align:center;
+    padding:15px;
+    margin-top:20px;
+}
+
+/* Responsive */
+@media(max-width:600px){
+    .jobs{
+        flex-direction:column;
+        align-items:center;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- Navbar -->
+<div class="navbar">
+    <div><strong>Job Board</strong></div>
+    <div>
+        <a href="#">Home</a>
+        <a href="#">Browse Jobs</a>
+        <a href="#">Login</a>
+        <a href="#" class="btn">Post a Job</a>
+    </div>
+</div>
+
+<!-- Hero Section -->
+<div class="hero">
+    <h1>Find Your Dream Job</h1>
+    <p>Browse thousands of job opportunities</p>
+    <button>Upload Resume</button>
+</div>
+
+<!-- Search Section -->
+<div class="search">
+    <input type="text" placeholder="Job Title">
+    <input type="text" placeholder="Location">
+    <button>Find Job</button>
+</div>
+
+<!-- Job Listings -->
+<div class="jobs">
+
+    <div class="job-card">
+        <h3>Frontend Developer</h3>
+        <p>Company: ABC Tech</p>
+        <p>Location: Hyderabad</p>
+        <button>Apply Now</button>
+    </div>
+
+    <div class="job-card">
+        <h3>Backend Developer</h3>
+        <p>Company: XYZ Solutions</p>
+        <p>Location: Bangalore</p>
+        <button>Apply Now</button>
+    </div>
+
+    <div class="job-card">
+        <h3>UI/UX Designer</h3>
+        <p>Company: Creative Labs</p>
+        <p>Location: Chennai</p>
+        <button>Apply Now</button>
+    </div>
+
+</div>
+
+<!-- Footer -->
+<div class="footer">
+    © 2026 Job Board | All Rights Reserved
+</div>
+
+</body>
+</html>
