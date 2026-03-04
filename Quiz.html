@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Online Quiz Maker</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+body{
+    font-family: Arial;
+    margin:0;
+    background:#f4f6f9;
+}
+header{
+    background:#007bff;
+    color:white;
+    padding:15px;
+    text-align:center;
+}
+.container{
+    padding:20px;
+}
+button{
+    padding:8px 15px;
+    margin:5px;
+    border:none;
+    border-radius:5px;
+    cursor:pointer;
+}
+.primary{ background:#007bff; color:white;}
+.success{ background:#28a745; color:white;}
+.card{
+    background:white;
+    padding:15px;
+    border-radius:8px;
+    margin-bottom:15px;
+    box-shadow:0 2px 5px rgba(0,0,0,0.1);
+}
+input{
+    padding:8px;
+    margin:5px 0;
+    width:100%;
+}
+.option{
+    margin:8px 0;
+}
+.hidden{ display:none; }
+</style>
+</head>
+<body>
+
+<header>
+<h2>Online Quiz Maker</h2>
+</header>
+
+<div class="container">
+
+<!-- Home -->
+<div id="home">
+    <h3>Welcome!</h3>
+    <button class="primary" onclick="showCreate()">Create Quiz</button>
+    <button class="success" onclick="showQuizList()">Take Quiz</button>
+</div>
+
+<!-- Create Quiz -->
+<div id="create" class="hidden">
+    <h3>Create Quiz</h3>
+    <input type="text" id="quizTitle" placeholder="Quiz Title">
+
+    <div class="card">
+        <input type="text" id="question" placeholder="Enter Question">
+        <input type="text" id="opt1" placeholder="Option 1">
+        <input type="text" id="opt2" placeholder="Option 2">
+        <input type="text" id="opt3" placeholder="Option 3">
+        <input type="text" id="opt4" placeholder="Option 4">
+        <input type="number" id="correct" placeholder="Correct Option (1-4)">
+        <button class="primary" onclick="addQuestion()">Add Question</button>
+    </div>
+
+    <button class="success" onclick="saveQuiz()">Save Quiz</button>
+    <button onclick="goHome()">Back</button>
+</div>
+
+<!-- Quiz List -->
+<div id="quizList" class="hidden">
+    <h3>Available Quizzes</h3>
+    <div id="list"></div>
+    <button onclick="goHome()">Back</button>
+</div>
+
+<!-- Take Quiz -->
+<div id="quizSection" class="hidden">
+    <h3 id="quizName"></h3>
+    <div id="quizBox"></div>
+</div>
+
+<!-- Result -->
+<div id="result" class="hidden">
+    <h3>Quiz Result</h3>
+    <p id="score"></p>
+    <div id="answers"></div>
+    <button onclick="goHome()">Back to Home</button>
+</div>
+
+</div>
+
+<script>
+let quizzes = JSON.parse(localStorage.getItem("quizzes")) || [];
+let currentQuiz = null;
+let currentIndex = 0;
+let userScore = 0;
+let userAnswers = [];
+let tempQuestions = [];
+
+/* Navigation */
+function showCreate(){
+    hideAll();
+    document.getElementById("create").classList.remove("hidden");
+}
+function showQuizList(){
+    hideAll();
+    document.getElementById("quizList").classList.remove("hidden");
+    displayQuizList();
+}
+function goHome(){
+    hideAll();
+    document.getElementById("home").classList.remove("hidden");
+}
+function hideAll(){
+    document.querySelectorAll(".container > div").forEach(div => div.classList.add("hidden"));
+}
+
+/* Create Quiz */
+function addQuestion(){
+    let q = {
+        question: question.value,
+        options: [opt1.value, opt2.value, opt3.value, opt4.value],
+        correct: parseInt(correct.value)-1
+    };
+    tempQuestions.push(q);
+    alert("Question Added!");
+    question.value = opt1.value = opt2.value = opt3.value = opt4.value = correct.value = "";
+}
+function saveQuiz(){
+    let newQuiz = {
+        title: quizTitle.value,
+        questions: tempQuestions
+    };
+    quizzes.push(newQuiz);
+    localStorage.setItem("quizzes", JSON.stringify(quizzes));
+    alert("Quiz Saved!");
+    tempQuestions = [];
+    quizTitle.value="";
+    goHome();
+}
+
+/* Quiz Listing */
+function displayQuizList(){
+    let listDiv = document.getElementById("list");
+    listDiv.innerHTML="";
+    quizzes.forEach((quiz,index)=>{
+        listDiv.innerHTML += `
+        <div class="card">
+            <h4>${quiz.title}</h4>
+            <button class="primary" onclick="startQuiz(${index})">Start</button>
+        </div>`;
+    });
+}
+
+/* Take Quiz */
+function startQuiz(index){
+    currentQuiz = quizzes[index];
+    currentIndex = 0;
+    userScore = 0;
+    userAnswers = [];
+    hideAll();
+    document.getElementById("quizSection").classList.remove("hidden");
+    document.getElementById("quizName").innerText = currentQuiz.title;
+    showQuestion();
+}
+
+function showQuestion(){
+    let q = currentQuiz.questions[currentIndex];
+    let box = document.getElementById("quizBox");
+    box.innerHTML = `
+        <div class="card">
+        <h4>${q.question}</h4>
+        ${q.options.map((opt,i)=>`
+            <div class="option">
+                <input type="radio" name="option" value="${i}"> ${opt}
+            </div>`).join("")}
+        <button class="success" onclick="nextQuestion()">Next</button>
+        </div>
+    `;
+}
+
+function nextQuestion(){
+    let selected = document.querySelector("input[name='option']:checked");
+    if(!selected){ alert("Select an answer"); return; }
+    let answer = parseInt(selected.value);
+    userAnswers.push(answer);
+    if(answer === currentQuiz.questions[currentIndex].correct){
+        userScore++;
+    }
+    currentIndex++;
+    if(currentIndex < currentQuiz.questions.length){
+        showQuestion();
+    } else {
+        showResult();
+    }
+}
+
+/* Result */
+function showResult(){
+    hideAll();
+    document.getElementById("result").classList.remove("hidden");
+    document.getElementById("score").innerText = 
+        `Your Score: ${userScore}/${currentQuiz.questions.length}`;
+
+    let ansDiv = document.getElementById("answers");
+    ansDiv.innerHTML="";
+    currentQuiz.questions.forEach((q,i)=>{
+        ansDiv.innerHTML += `
+        <div class="card">
+        <strong>Q:</strong> ${q.question}<br>
+        <strong>Correct:</strong> ${q.options[q.correct]}
+        </div>`;
+    });
+}
+</script>
+
+</body>
+</html>
